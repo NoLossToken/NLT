@@ -1,2 +1,2 @@
-# NLT
-No Loss Token SOL. Using crypto without been impacted by fall in coin prices.
+# THIS CONTAINS ALL NLT INDEPENDENT SMART CONTRACTS
+
