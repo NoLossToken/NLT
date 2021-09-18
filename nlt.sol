@@ -57,17 +57,17 @@ contract NoLossToken is ERC20 {
   
   //Mint For UnFreeze
   function mintForUnFreeze(address receiverAddress, uint256 amount) public payable authorizedToMint {
-		_mint(receiverAddress, amount);
-    commissionAmount = amount*(commissionPercentage/100)
-    _mint(commissionAddress, commissionAmount);
-    emit tokenMintedToPayUnfreeze(receiverAddress, amount);
-	}
+	_mint(receiverAddress, amount);
+    	commissionAmount = amount*(commissionPercentage/100)
+    	_mint(commissionAddress, commissionAmount);
+    	emit tokenMintedToPayUnfreeze(receiverAddress, amount);
+  }
   
   //Mint By Owner
   function mint(address receiverAddress, uint256 amount) public payable authorizedOwner {
-		_mint(receiverAddress, amount);
-    emit ownerMinted(receiverAddress, amount);
-	}
+	_mint(receiverAddress, amount);
+   	emit ownerMinted(receiverAddress, amount);
+  }
   
   function burn(uint256 value) public {        
     _burn(msg.sender, value);    
