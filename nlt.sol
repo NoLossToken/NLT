@@ -11,7 +11,6 @@ contract NoLossToken is ERC20 {
   address payable public minter;
   address payable public commissionAddress;
   uint public commissionPercentage;
-   uint public commissionAmount;
 
   //Events
   event TokenMinted(address indexed from, address to);
@@ -62,7 +61,7 @@ contract NoLossToken is ERC20 {
   //Mint For UnFreeze
   function mintForUnFreeze(address receiverAddress, uint256 amount) public payable authorizedToMint {
 	_mint(receiverAddress, amount);
-    	commissionAmount = (amount*commissionPercentage)/100;
+    	uint commissionAmount = (amount*commissionPercentage)/100;
     	_mint(commissionAddress, commissionAmount);
     	emit tokenMintedToPayUnfreeze(receiverAddress, amount);
   }
