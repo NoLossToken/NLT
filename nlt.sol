@@ -18,7 +18,7 @@ contract NoLossToken is ERC20 {
   event tokenMintedToPayUnfreeze(receiverAddress, amount);
   event ownerMinted(receiverAddress, amount);
   
-   constructor() payable ERC20() {
+   constructor() payable ERC20("NoLoss Token", "NLT") {
     owner = payable(address(msg.sender));
     minter = payable(address(msg.sender));
     commissionAddress = payable(address(msg.sender));
