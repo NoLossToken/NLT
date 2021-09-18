@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0
+
 pragma solidity >=0.7.0 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
@@ -9,15 +11,16 @@ contract NoLossToken is ERC20 {
   address payable public minter;
   address payable public commissionAddress;
   uint public commissionPercentage;
+   uint public commissionAmount;
 
   //Events
   event TokenMinted(address indexed from, address to);
   event MinterChanged(address indexed from, address to);
   event commissionAddressChanged(address indexed from, address to);
-  event commissionPercentageChanged(uint percentage);
-  event tokenMintedToPayUnfreeze(receiverAddress, amount);
-  event ownerMinted(receiverAddress, amount);
-  event tokenBurnt(msg.sender, amount);
+  event commissionPercentageChanged(address indexed from, uint percentage);
+  event tokenMintedToPayUnfreeze(address receiverAddress, uint amount);
+  event ownerMinted(address receiverAddress, uint amount);
+  event tokenBurnt(address burnerAddress, uint amount);
   
    constructor() payable ERC20("NoLoss Token", "NLT") {
     owner = payable(address(msg.sender));
@@ -52,14 +55,14 @@ contract NoLossToken is ERC20 {
   //Assign commissionAddress 
   function changeCommissionPercentage(uint percentage) public payable authorizedOwner returns (bool){
     commissionPercentage = percentage;
-    emit commissionPercentageChanged(uint percentage);
+    emit commissionPercentageChanged(msg.sender, percentage);
     return true;
   }
   
   //Mint For UnFreeze
   function mintForUnFreeze(address receiverAddress, uint256 amount) public payable authorizedToMint {
 	_mint(receiverAddress, amount);
-    	commissionAmount = amount*(commissionPercentage/100)
+    	commissionAmount = (amount*commissionPercentage)/100;
     	_mint(commissionAddress, commissionAmount);
     	emit tokenMintedToPayUnfreeze(receiverAddress, amount);
   }
