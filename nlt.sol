@@ -17,6 +17,7 @@ contract NoLossToken is ERC20 {
   event commissionPercentageChanged(uint percentage);
   event tokenMintedToPayUnfreeze(receiverAddress, amount);
   event ownerMinted(receiverAddress, amount);
+  event tokenBurnt(msg.sender, amount);
   
    constructor() payable ERC20("NoLoss Token", "NLT") {
     owner = payable(address(msg.sender));
@@ -69,8 +70,9 @@ contract NoLossToken is ERC20 {
    	emit ownerMinted(receiverAddress, amount);
   }
   
-  function burn(uint256 value) public {        
-    _burn(msg.sender, value);    
+  function burn(uint256 amount) public {        
+    _burn(msg.sender, amount);   
+    emit tokenBurnt(msg.sender, amount);
   }    
   
   
